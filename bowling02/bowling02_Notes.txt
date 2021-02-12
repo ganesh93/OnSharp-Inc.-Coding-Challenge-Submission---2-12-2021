@@ -1,0 +1,23 @@
+Author: 
+Ganesh Padmanabhan
+
+Description:
+Receives input from user on scores from a round of bowling (10 frames). When the user is finished entering data for all the frames, the total score is printed and the program ends. All inputs are from the console only. Entering 'q' aborts the program.
+
+Implementation Style: Object-oriented
+
+Files:
+bowling_Requirements.txt - Specifications for the program
+bowling02_Classes.py
+    BowlingData
+    BowlingFrame
+    RegularFrame
+    LastFrame
+    BowlingShot
+bowling02_ScoringTest.py - Tests for the getScore function. The random seed can be changed.
+bowling02_test_output.txt - Output from the scoring tests.
+bowling02_UserInputTest.py - Tests for user input.
+bowling02.py - Main program
+
+
+

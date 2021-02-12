@@ -1,0 +1,214 @@
+Frames 1 to 9, Last Frame 0: 9 test cases
+10th Frame testing: 3 test cases
+0: all open
+1: 1 strike
+2: 1 spare
+3: 2 consecutive strikes
+4: 2 consecutive spares
+5: 3 consecutive strikes
+6: 3 consecutive spares
+7: strike then spare
+8: spare then strike
+9: open, 2 shots, < 10 total
+10: spare + 1 shot
+11: strike + 2 shots
+12: all strikes
+13: all spares
+14: all random
+
+
+Test Case 0: all open
+Frame 01:  6  3
+Frame 02:  3  4
+Frame 03:  2  3
+Frame 04:  3  1
+Frame 05:  1  4
+Frame 06:  6  0
+Frame 07:  9  0
+Frame 08:  3  3
+Frame 09:  9  0
+Frame 10:  0  0
+Score: 60
+----------------------------------
+Test Case 1: 1 strike
+Frame 01:  6  3
+Frame 02:  3  4
+Frame 03:  2  3
+Frame 04:  3  1
+Frame 05:  1  4
+Frame 06: 10
+Frame 07:  9  0
+Frame 08:  3  3
+Frame 09:  9  0
+Frame 10:  0  0
+Score: 73
+----------------------------------
+Test Case 2: 1 spare
+Frame 01:  6  3
+Frame 02:  3  4
+Frame 03:  2  3
+Frame 04:  6  4
+Frame 05:  1  4
+Frame 06:  6  0
+Frame 07:  9  0
+Frame 08:  3  3
+Frame 09:  9  0
+Frame 10:  0  0
+Score: 67
+----------------------------------
+Test Case 3: 2 consecutive strikes
+Frame 01:  6  3
+Frame 02:  3  4
+Frame 03: 10
+Frame 04: 10
+Frame 05:  1  4
+Frame 06:  6  0
+Frame 07:  9  0
+Frame 08:  3  3
+Frame 09:  9  0
+Frame 10:  0  0
+Score: 87
+----------------------------------
+Test Case 4: 2 consecutive spares
+Frame 01:  6  3
+Frame 02:  3  4
+Frame 03:  2  3
+Frame 04:  3  1
+Frame 05:  1  4
+Frame 06:  7  3
+Frame 07:  2  8
+Frame 08:  3  3
+Frame 09:  9  0
+Frame 10:  0  0
+Score: 70
+----------------------------------
+Test Case 5: 3 consecutive strikes
+Frame 01: 10
+Frame 02: 10
+Frame 03: 10
+Frame 04:  3  1
+Frame 05:  1  4
+Frame 06:  6  0
+Frame 07:  9  0
+Frame 08:  3  3
+Frame 09:  9  0
+Frame 10:  0  0
+Score: 106
+----------------------------------
+Test Case 6: 3 consecutive spares
+Frame 01:  6  3
+Frame 02:  3  4
+Frame 03:  2  3
+Frame 04:  3  1
+Frame 05:  1  4
+Frame 06:  8  2
+Frame 07:  1  9
+Frame 08:  7  3
+Frame 09:  9  0
+Frame 10:  0  0
+Score: 86
+----------------------------------
+Test Case 7: strike then spare
+Frame 01: 10
+Frame 02:  6  4
+Frame 03:  2  3
+Frame 04:  3  1
+Frame 05:  1  4
+Frame 06:  6  0
+Frame 07:  9  0
+Frame 08:  3  3
+Frame 09:  9  0
+Frame 10:  0  0
+Score: 76
+----------------------------------
+Test Case 8: spare then strike
+Frame 01:  4  6
+Frame 02: 10
+Frame 03:  2  3
+Frame 04:  3  1
+Frame 05:  1  4
+Frame 06:  6  0
+Frame 07:  9  0
+Frame 08:  3  3
+Frame 09:  9  0
+Frame 10:  0  0
+Score: 79
+----------------------------------
+Test Case 9: open, 2 shots, < 10 total
+Frame 01:  0  0
+Frame 02:  0  0
+Frame 03:  0  0
+Frame 04:  0  0
+Frame 05:  0  0
+Frame 06:  0  0
+Frame 07:  0  0
+Frame 08:  0  0
+Frame 09:  0  0
+Frame 10:  6  1
+Score: 7
+----------------------------------
+Test Case 10: spare + 1 shot
+Frame 01:  0  0
+Frame 02:  0  0
+Frame 03:  0  0
+Frame 04:  0  0
+Frame 05:  0  0
+Frame 06:  0  0
+Frame 07:  0  0
+Frame 08:  0  0
+Frame 09:  0  0
+Frame 10:  5  5  8
+Score: 18
+----------------------------------
+Test Case 11: strike + 2 shots
+Frame 01:  0  0
+Frame 02:  0  0
+Frame 03:  0  0
+Frame 04:  0  0
+Frame 05:  0  0
+Frame 06:  0  0
+Frame 07:  0  0
+Frame 08:  0  0
+Frame 09:  0  0
+Frame 10: 10  1  7
+Score: 18
+----------------------------------
+Test Case 12: all strikes
+Frame 01: 10
+Frame 02: 10
+Frame 03: 10
+Frame 04: 10
+Frame 05: 10
+Frame 06: 10
+Frame 07: 10
+Frame 08: 10
+Frame 09: 10
+Frame 10: 10
+Score: 270
+----------------------------------
+Test Case 13: all spares
+Frame 01:  8  2
+Frame 02:  3  7
+Frame 03:  9  1
+Frame 04:  7  3
+Frame 05:  0 10
+Frame 06:  5  5
+Frame 07:  2  8
+Frame 08:  3  7
+Frame 09:  2  8
+Frame 10:  7  3
+Score: 138
+----------------------------------
+Test Case 14: all random
+Frame 01:  9  0
+Frame 02:  8  2
+Frame 03:  2  0
+Frame 04:  1  0
+Frame 05:  2  7
+Frame 06: 10
+Frame 07:  1  6
+Frame 08: 10
+Frame 09:  2  4
+Frame 10:  9  0
+Score: 88
+----------------------------------
