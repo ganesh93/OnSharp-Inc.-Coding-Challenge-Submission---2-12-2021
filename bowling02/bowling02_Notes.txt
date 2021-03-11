@@ -8,6 +8,8 @@ Receives input from user on scores from a round of bowling (10 frames). When the
 
 Implementation Style: Object-oriented
 
+Added a test line in middle of notes.
+
 Files:
 bowling_Requirements.txt - Specifications for the program
 bowling02_Classes.py
