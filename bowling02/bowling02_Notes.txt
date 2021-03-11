@@ -1,4 +1,6 @@
-Author: 
+# Added a second line to the notes at the top
+
+Author:
 Ganesh Padmanabhan
 
 Description:
