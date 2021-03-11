@@ -19,5 +19,6 @@ bowling02_test_output.txt - Output from the scoring tests.
 bowling02_UserInputTest.py - Tests for user input.
 bowling02.py - Main program
 
+Added a line to the notes.
 
 
