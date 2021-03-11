@@ -10,10 +10,10 @@ Files:
 bowling_Requirements.txt - Specifications for the program
 bowling01_Functions.py - Supporting functions for the main program
     getUserInput()
-    getScore()
+    get_score()
     writePinsDownData()
     refractorData()
-bowling01_ScoringTest.py - Tests for the getScore function. The random seed can be changed.
+bowling01_ScoringTest.py - Tests for the get_score function. The random seed can be changed.
 bowling01_test_output.txt - Output from the scoring tests.
 bowling01_UserInputTest.py - Tests for the getUserInput function.
 bowling01.py - Main program

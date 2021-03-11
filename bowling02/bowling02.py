@@ -18,14 +18,14 @@ from bowling02_Classes import *
 
 bd = BowlingData()
 try:
-    while not(bd.isComplete()):
-        bd.addFrame()
+    while not(bd.is_complete()):
+        bd.add_frame()
 except Exception:
     print("User aborted.")
     raise
 
 print("\n\n")
-bd.printScores()
+bd.print_scores()
 
 
 

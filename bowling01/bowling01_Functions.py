@@ -3,8 +3,8 @@ def getUserInput(nFrames,frame,shot,maxPins):
     # Prompts the user for the number of pins kncocked down on a particular frame and shot.
     # Returns an integer value representing the number of pins knocked down as entered by the user.
     # Parameters:
-    # nFrames - number of frames
-    # frame - which frame, 1 to nFrames
+    # n_frames - number of frames
+    # frame - which frame, 1 to n_frames
     # shot - which shot, 1 to 3
     # maxPins - restricts the maximum pins to enter as knocked down. Takes a value between 0 and 10.
 
@@ -92,7 +92,7 @@ def refactorData(pkd):
     #
     # Return Values:
     # shotIndByFrame - List of lists. Stores an index for each shot taken on
-    #                  each frame. List is nFrames in length. Each element is
+    #                  each frame. List is n_frames in length. Each element is
     #                  a list of indices that correspond to each shot taken in
     #                  frame. The index refers to anotbher list that has all
     #                  scores for every shot taken.

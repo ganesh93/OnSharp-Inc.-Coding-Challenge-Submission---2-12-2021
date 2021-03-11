@@ -14,7 +14,7 @@ bowling02_Classes.py
     RegularFrame
     LastFrame
     BowlingShot
-bowling02_ScoringTest.py - Tests for the getScore function. The random seed can be changed.
+bowling02_ScoringTest.py - Tests for the get_score function. The random seed can be changed.
 bowling02_test_output.txt - Output from the scoring tests.
 bowling02_UserInputTest.py - Tests for user input.
 bowling02.py - Main program

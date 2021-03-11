@@ -7,7 +7,7 @@ seed(99)
 nTestCases = 15
 t = [[] for i in range(nTestCases)]
 
-# getScore Frames 1 to 9, 9 cases with 10th frame score always zero
+# get_score Frames 1 to 9, 9 cases with 10th frame score always zero
 # 0) All Open
 for iFrame in range(9):
     a = randint(0,9) # first shot
@@ -69,7 +69,7 @@ ind = randint(0,7)
 t[8][ind] = [a,10-a] # first frame
 t[8][ind+1] = [10] # second frame
 
-# getScore Frame 10, 3 cases, frames 1 through 9 are open and zero
+# get_score Frame 10, 3 cases, frames 1 through 9 are open and zero
 # 9) 10th Frame Open, 2 shots, < 10 total
 t[9] = [[0,0] for i in range(9)]
 a = randint(0,9) # first shot
@@ -87,7 +87,7 @@ t[11].append([10,randint(0,10), randint(0,10)])
 
 #---#
 
-# getScore 2 cases, all strikes and all spares
+# get_score 2 cases, all strikes and all spares
 # 12) all strikes
 t[12] = [[10] for i in range(9)]
 t[12].append([10, 10, 10])
@@ -139,6 +139,6 @@ with open("bowling02_test_output.txt",'w') as f:
         pkd = t[iTestCase]
         f.write("Test Case " + testCaseStr[iTestCase] + "\n")
         bd = BowlingData()
-        bd.loadScores(pkd)
-        bd.writeScoresToFile(f)
+        bd.load_scores(pkd)
+        bd.write_scores_to_file(f)
         f.write("\n----------------------------------\n")

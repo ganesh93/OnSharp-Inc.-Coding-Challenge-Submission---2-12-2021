@@ -5,18 +5,18 @@ bd = BowlingData()
 
  #  out of lower and upper bounds, within bounds
 print("Enter pins knocked down below 0, then above 10, then within bounds.")
-bd.addFrame()
+bd.add_frame()
 
 # out of lower and upper bounds, within bounds
-bd.addFrame()
+bd.add_frame()
 
 # restricted upper bound
-bd.addFrame()
+bd.add_frame()
 
 # reset
 bd.reset()
 
 # q to abort
-bd.addFrame()
+bd.add_frame()
 
 

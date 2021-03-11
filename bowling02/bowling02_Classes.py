@@ -9,86 +9,93 @@
 # An alternate way of adding a complete dataset is provided which requires
 # no user input, but instead a nested list that contains score information.
 class BowlingData:
-    """This class represents bowling data from a round of bowling. The number of frames in the round can be specified. The default is 10. It is a container for bowling frames, and instances can add frames until the number of frames in the round are complete. It is considered complete when all frames for the round have been added. If complete, there is a method to retrieve the total score. There are also methods to print the scores from the frames to the console or an output file. An alternate way of adding a complete dataset is provided which requires no user input, but instead a nested list that contains score information.   """
-    nFramesPerRound = 10
+    """This class represents bowling data from a round of bowling. The number of frames in the round can be
+    specified. The default is 10. It is a container for bowling frames, and instances can add frames until the number
+    of frames in the round are complete. It is considered complete when all frames for the round have been added. If
+    complete, there is a method to retrieve the total score. There are also methods to print the scores from the
+    frames to the console or an output file. An alternate way of adding a complete dataset is provided which requires
+    no user input, but instead a nested list that contains score information. """
+    n_frames_per_round = 10
+
     def __init__(self):
         """This is the initializer for this class."""
         self.frames = []
-        self.nFrames = 0
-        self.scoreIndByFrame = []
+        self.n_frames = 0
+        self.score_ind_by_frame = []
         self.scores = []
-        self.totalScore = 0
+        self.total_score = 0
         self.complete = False
   
     def reset(self):
         self.__init__()
 
-    def isComplete(self):
+    def is_complete(self):
         return self.complete
 
-    def addFrame(self):
+    def add_frame(self):
         if self.complete:
-            print("Cannot add another frame. Score information for all " + str(self.nFramesPerRound) + " frames is complete.")
+            print("Cannot add another frame. Score information for all " + str(self.n_frames_per_round) + "frames is "
+                                                                                                          "complete.")
         else:
             # Add new frame, check whether to add a regular frame or last frame object.
-            if self.nFrames == BowlingData.nFramesPerRound - 1:
-                newFrame = LastFrame(self.nFrames+1)
+            if self.n_frames == BowlingData.n_frames_per_round - 1:
+                new_frame = LastFrame(self.n_frames + 1)
             else:
-                newFrame = RegularFrame(self.nFrames+1)
-            while not(newFrame.isComplete()):
-                newFrame.addShot()
-            self.frames.append(newFrame)
-            self.nFrames += 1
+                new_frame = RegularFrame(self.n_frames + 1)
+            while not(new_frame.is_complete()):
+                new_frame.add_shot()
+            self.frames.append(new_frame)
+            self.n_frames += 1
             
-            # update attributes scoreIndByFrame and scores
-            frameShots = self.frames[-1].getShots()
-            shotInd = [] 
-            shotScores = []
-            shotIndexStart = len(self.scores)
-            for i in range(len(frameShots)):
-                shotInd.append(shotIndexStart + i)
-                shotScores.append(frameShots[i].getScore())
-            self.scoreIndByFrame.append(shotInd) 
-            self.scores.extend(shotScores)
+            # update attributes score_ind_by_frame and scores
+            frame_shots = self.frames[-1].get_shots()
+            shot_ind = []
+            shot_scores = []
+            shot_index_start = len(self.scores)
+            for i in range(len(frame_shots)):
+                shot_ind.append(shot_index_start + i)
+                shot_scores.append(frame_shots[i].get_score())
+            self.score_ind_by_frame.append(shot_ind)
+            self.scores.extend(shot_scores)
 
             # If last frame was just added, compute the total score and set as complete.
-            if self.nFrames == BowlingData.nFramesPerRound:
-                self.totalScore = self.getTotalScore()
+            if self.n_frames == BowlingData.n_frames_per_round:
+                self.total_score = self.get_total_score()
                 self.complete = True
             
 
-    def getTotalScore(self):
+    def get_total_score(self):
         # Computes the total score from the frame data.
         # Requires the data set to be complete or else returns 0.
         #---------------------------------------------------------------------------------#
         
         # Score the input. Scoring scheme for each frame depends on the frame as well as whether it was
         # a strike, spare, or open frame.
-        totalScore = 0
+        total_score = 0
         if self.complete:
             # Computes on completed data set only.
-            for iFrame in range(1,self.nFrames+1):
-                frameScore = 0
+            for iFrame in range(1, self.n_frames + 1):
+                frame_score = 0
                 # Frames 1 through 9 and frame 10 scored differently
                 if iFrame <= 10:
                     # Frames 1 through 9
                     # If strike or a spare, add this shot plus next two shots to score.
                     # This is equivalent to how a strike is scored and a spare is scored.
-                    shotIndex = self.scoreIndByFrame[iFrame - 1][0]
-                    if self.scores[shotIndex] == 10 or (self.scores[shotIndex] + self.scores[shotIndex+1]) == 10:
+                    shot_index = self.score_ind_by_frame[iFrame - 1][0]
+                    if self.scores[shot_index] == 10 or (self.scores[shot_index] + self.scores[shot_index+1]) == 10:
                         # strike or spare
-                        frameScore = sum(self.scores[shotIndex:shotIndex+3]) 
+                        frame_score = sum(self.scores[shot_index:shot_index+3])
                     else:
                         # Open - add the 2 shots from the frame
-                        frameScore = sum(self.scores[shotIndex:shotIndex+2])
-                totalScore += frameScore
+                        frame_score = sum(self.scores[shot_index:shot_index+2])
+                total_score += frame_score
         else:
             # Returns zero on incomplete data set.
-            totalScore = 0
+            total_score = 0
 
-        return totalScore
+        return total_score
 
-    def writeScoresToFile(self,fout):
+    def write_scores_to_file(self, fout):
         # Writes the scores to the file opened by fout. It will fail if fout is closed or read only or invalid.
         # If the data set is not complete, writes out what data is available.
         # Parameters:
@@ -108,20 +115,20 @@ class BowlingData:
         # Score: 62        
         #
 
-        for i in range(self.nFrames):
-            frameScoresStr = "" # string that will have the scores from the shots on each frame
-            frameShots = self.frames[i].getShots()
-            scoreType = self.frames[i].getScoreType()
-            for j in range(len(frameShots)):
-                shotScore = frameShots[j].getScore()
-                frameScoresStr += str("{0:2d}".format(shotScore) + " ")
-            frameScoresStr = frameScoresStr[:-1] # Clips the last space character
-            if scoreType == "strike":
-                frameScoresStr += "   "
-            fout.write("Frame {0:02d}: ".format(i+1) + frameScoresStr + "   " + scoreType + "\n")
-        fout.write("Total Score: " + str(self.getTotalScore()))
+        for i in range(self.n_frames):
+            frame_scores_str = "" # string that will have the scores from the shots on each frame
+            frame_shots = self.frames[i].get_shots()
+            score_type = self.frames[i].get_score_type()
+            for j in range(len(frame_shots)):
+                shot_score = frame_shots[j].get_score()
+                frame_scores_str += str("{0:2d}".format(shot_score) + " ")
+            frame_scores_str = frame_scores_str[:-1] # Clips the last space character
+            if score_type == "strike":
+                frame_scores_str += "   "
+            fout.write("Frame {0:02d}: ".format(i+1) + frame_scores_str + "   " + score_type + "\n")
+        fout.write("Total Score: " + str(self.get_total_score()))
 
-    def printScores(self):
+    def print_scores(self):
         # Outputs the scores to the console.
         # If the data set is not complete, writes out what data is available.
         # Parameters:
@@ -141,26 +148,26 @@ class BowlingData:
         # Score: 62        
         #
 
-        for i in range(self.nFrames):
-            frameScoresStr = "" # string that will have the scores from the shots on each frame
-            frameShots = self.frames[i].getShots()
-            scoreType = self.frames[i].getScoreType()
-            for j in range(len(frameShots)):
-                shotScore = frameShots[j].getScore()
-                frameScoresStr += str("{0:2d}".format(shotScore) + " ")
-            frameScoresStr = frameScoresStr[:-1] # Clips the last space character
-            if scoreType == "strike":
-                frameScoresStr += "   "
-            print("Frame {0:02d}: ".format(i+1) + frameScoresStr + "   " + scoreType)
-        print("Total Score: " + str(self.getTotalScore()))
+        for i in range(self.n_frames):
+            frame_scores_str = ""  # string that will have the scores from the shots on each frame
+            frame_shots = self.frames[i].get_shots()
+            score_type = self.frames[i].get_score_type()
+            for j in range(len(frame_shots)):
+                shot_score = frame_shots[j].get_score()
+                frame_scores_str += str("{0:2d}".format(shot_score) + " ")
+            frame_scores_str = frame_scores_str[:-1] # Clips the last space character
+            if score_type == "strike":
+                frame_scores_str += "   "
+            print("Frame {0:02d}: ".format(i+1) + frame_scores_str + "   " + score_type)
+        print("Total Score: " + str(self.get_total_score()))
 
-        def isComplete(self):
+        def is_complete(self):
             return self.complete
 
-        def getNumberOfFrames(self):
-            return self.nFrames
+        def get_number_of_frames(self):
+            return self.n_frames
 
-    def loadScores(self,pkd):
+    def load_scores(self, pkd):
         # Takes in a nested list that has scores for each frame. The list must be 
         # BowlingData.nFramesPerRound in length. Each element should be a list with the 
         # scores for each frame. [[3,4],[9,1],[10],...]
@@ -170,104 +177,103 @@ class BowlingData:
         # 
         # Could not think of a way to do this without directly
         # accessing the attributes of frame and shot objects
-        nFrames = BowlingData.nFramesPerRound
-        self.scoreIndByFrame = [[] for i in range(nFrames)]
+        n_frames = BowlingData.n_frames_per_round
+        self.score_ind_by_frame = [[] for i in range(n_frames)]
         self.scores = []
-        shotIndex = 0
+        shot_index = 0
         # iterate through all the shot scores frame by frame
         for i in range(len(pkd)):
             for j in range(len(pkd[i])):
-                self.scoreIndByFrame[i].append(shotIndex)
+                self.score_ind_by_frame[i].append(shot_index)
                 self.scores.append(pkd[i][j])
-                shotIndex += 1
-        self.nFrames = nFrames
+                shot_index += 1
+        self.n_frames = n_frames
         self.complete = True
-        self.totalScore = self.getTotalScore()
-        for i in range(nFrames):
-            shotScores = pkd[i]
-            frameNumber = i+1
-            nShots = len(shotScores)
-            if nShots == 1:
-                scoreType = "strike"
-            elif nShots == 2 and sum(shotScores) == 10:
-                scoreType = "spare"
+        self.total_score = self.get_total_score()
+        for i in range(n_frames):
+            shot_scores = pkd[i]
+            frame_number = i+1
+            n_shots = len(shot_scores)
+            if n_shots == 1:
+                score_type = "strike"
+            elif n_shots == 2 and sum(shot_scores) == 10:
+                score_type = "spare"
             else:
-                scoreType = "open"
+                score_type = "open"
             
             shots = []
-            for j in range(nShots):
-                shotNumber = j+1
-                pinsStandingBeforeShot = 10-shotScores[j]
-                shot = BowlingShot(frameNumber,shotNumber,pinsStandingBeforeShot)
-                shot.score = shotScores[j]
+            for j in range(n_shots):
+                shot_number = j+1
+                pins_standing_before_shot = 10-shot_scores[j]
+                shot = BowlingShot(frame_number, shot_number, pins_standing_before_shot)
+                shot.score = shot_scores[j]
                 shot.complete = True
                 shots.append(shot)
 
-            if i == nFrames-1:
+            if i == n_frames-1:
                 # Last frame
-                frame = LastFrame(frameNumber)
+                frame = LastFrame(frame_number)
             else:
-                frame = RegularFrame(frameNumber)
+                frame = RegularFrame(frame_number)
             
-            frame.scoreType = scoreType
+            frame.scoreType = score_type
             frame.shots = shots
-            frame.nShots = nShots
+            frame.nShots = n_shots
             frame.complete = True
 
             self.frames.append(frame)
         
 
-
 # This class represents a bowling shot. It contains a score attribute which is initially zero, and
 # a method to retrieve user input to record the score for the shot.
 class BowlingShot:
-    def __init__(self, frameNumber, shotNumber, pinsStandingBeforeShot) -> None:
-        self.nFrames = BowlingData.nFramesPerRound # number of frames in round
-        self.frameNumber = frameNumber # which frame, 1 to nFrames
-        self.shotNumber = shotNumber # which shot, 1 to 3
-        self.pinsStandingBeforeShot = pinsStandingBeforeShot # the number of pins standing when shot taken
-        self.score = 0 # the number of pins knocked down after shot taken
+    def __init__(self, frame_number, shot_number, pins_standing_before_shot) -> None:
+        self.n_frames = BowlingData.n_frames_per_round  # number of frames in round
+        self.frame_number = frame_number  # which frame, 1 to n_frames
+        self.shot_number = shot_number  # which shot, 1 to 3
+        self.pins_standing_before_shot = pins_standing_before_shot  # the number of pins standing when shot taken
+        self.score = 0  # the number of pins knocked down after shot taken
         self.complete = False
 
         # Guards on attributes
-        if frameNumber < 1 or frameNumber > self.nFrames:
-            raise Exception("Error: BowlingShot->getUserInput() 'frameNumber' out of bounds.")
-        if shotNumber < 1 or shotNumber > 3:
+        if frame_number < 1 or frame_number > self.n_frames:
+            raise Exception("Error: BowlingShot->getUserInput() 'frame_number' out of bounds.")
+        if shot_number < 1 or shot_number > 3:
             raise Exception("Error: BowlingShot->getUserInput() 'shot' out of bounds.")
-        if pinsStandingBeforeShot < 0 or pinsStandingBeforeShot > 10:
-            raise Exception("Error: BowlingShot->getUserInput() 'pinsStandingBeforeShot' out of bounds")
+        if pins_standing_before_shot < 0 or pins_standing_before_shot > 10:
+            raise Exception("Error: BowlingShot->getUserInput() 'pins_standing_before_shot' out of bounds")
 
-    def setScore(self,score):
+    def set_score(self, score):
         self.score = score
         self.complete = True
     
-    def getScore(self):
+    def get_score(self):
         if self.complete:
             return self.score
         else:
-            raise Exception("Error: BowlingShot->getScore - data for shot not recorded yet.")
+            raise Exception("Error: BowlingShot->get_score - data for shot not recorded yet.")
 
-    def getScoreFromUser(self):
-        # Prompts the user for the number of pins kncocked down on a particular frame and shot.
+    def get_score_from_user(self):
+        # Prompts the user for the number of pins knocked down on a particular frame and shot.
         # Returns an integer value representing the number of pins knocked down as entered by the user.
         # Parameters:
-        # nFrames - number of frames
-        # frame - which frame, 1 to nFrames
+        # n_frames - number of frames
+        # frame - which frame, 1 to n_frames
         # shot - which shot, 1 to 3
         # maxPins - restricts the maximum pins to enter as knocked down. Takes a value between 0 and 10.
 
-        # Prompts until a valid input is entered. Range is 0 to pinsStandingBeforeShot pins. 
-        validInput = False
+        # Prompts until a valid input is entered. Range is 0 to pins_standing_before_shot pins.
+        valid_input = False
         x = ""
-        while not validInput:
-            x = input("Frame " + str(self.frameNumber) + " Shot " + str(self.shotNumber) + ": ")
+        while not valid_input:
+            x = input("Frame " + str(self.frame_number) + " Shot " + str(self.shot_number) + ": ")
             if x == "q":
                 raise Exception("Error: User abort.")
             else:
                 # input should be an integer value within bounds
                 try:
-                    if int(x) >= 0 and int(x) <= self.pinsStandingBeforeShot:
-                        validInput = True
+                    if 0 <= int(x) <= self.pins_standing_before_shot:
+                        valid_input = True
                     else:
                         print("Invalid input, please try again.")
                 except ValueError:
@@ -275,43 +281,42 @@ class BowlingShot:
         self.score = int(x)
         self.complete = True      
 
-    def isComplete(self):
+    def is_complete(self):
         return self.complete
-
 
 
 # This class represents a bowling frame. It is a parent class for two derived classes, RegularFrame and LastFrame.
 # It is a container for bowling shots.
 class BowlingFrame:
-    def __init__(self,frameNumber) -> None:
-        self.frameNumber = frameNumber
+    def __init__(self, frame_number) -> None:
+        self.frameNumber = frame_number
         self.scoreType = "" # Open, Spare, or Strike as defined in requirements. For tenth frame, Strike takes precedence over spare.
         self.shots = [] # List of BowlingShots in order of occurence for this frame.
         self.nShots = 0
         self.complete = False # when the frame is complete this is true. All the scores for the shots taken on the frame have been collected.
 
-    def addShot(self):
+    def add_shot(self):
         pass
      
-    def getShots(self):
+    def get_shots(self):
         return self.shots
 
-    def getNumberOfShots(self):
+    def get_number_of_shots(self):
         return self.nShots
 
-    def isComplete(self):
+    def is_complete(self):
         return self.complete
     
-    def getScoreType(self):
+    def get_score_type(self):
         return self.scoreType
 
 
 # This class represents frames in which there are two shots possible.
 class RegularFrame(BowlingFrame):
-    def __init__(self, frameNumber) -> None:
-        super().__init__(frameNumber)
+    def __init__(self, frame_number) -> None:
+        super().__init__(frame_number)
 
-    def addShot(self):
+    def add_shot(self):
         # Creates the shot, gets user to score the shot, and adds it to the list of shots.
         # If the first shot is a strike, it marks it as complete with one shot.
         # If the first shot is not a strike, then it remains incomplete and open for another shot.
@@ -323,23 +328,23 @@ class RegularFrame(BowlingFrame):
         else:
             if self.nShots == 0:
                 # no shots have been taken yet this frame
-                pinsStandingBeforeShot = 10
+                pins_standing_before_shot = 10
                 self.nShots += 1
-                shot = BowlingShot(self.frameNumber, self.nShots, pinsStandingBeforeShot)
-                shot.getScoreFromUser()
+                shot = BowlingShot(self.frameNumber, self.nShots, pins_standing_before_shot)
+                shot.get_score_from_user()
                 self.shots.append(shot)
-                if shot.getScore() == 10:
+                if shot.get_score() == 10:
                     print("Strike!")
                     self.scoreType = "strike"
                     self.complete = True
             elif self.nShots == 1:
                 # one shot taken already
-                pinsStandingBeforeShot = 10-self.shots[0].getScore()
+                pins_standing_before_shot = 10-self.shots[0].get_score()
                 self.nShots += 1
-                shot = BowlingShot(self.frameNumber, self.nShots, pinsStandingBeforeShot)
-                shot.getScoreFromUser()
+                shot = BowlingShot(self.frameNumber, self.nShots, pins_standing_before_shot)
+                shot.get_score_from_user()
                 self.shots.append(shot)
-                if self.shots[0].getScore() + self.shots[1].getScore() == 10:
+                if self.shots[0].get_score() + self.shots[1].get_score() == 10:
                     print("Spare!")
                     self.scoreType = "spare"
                 else:
@@ -347,12 +352,14 @@ class RegularFrame(BowlingFrame):
                     self.scoreType = "open"
                 self.complete = True
 
-# This class represents the last frame in which there are three shots possible.
-class LastFrame(BowlingFrame):
-    def __init__(self, frameNumber) -> None:
-        super().__init__(frameNumber)
 
-    def addShot(self):
+
+class LastFrame(BowlingFrame):
+    """This class represents the last frame in which there are three shots possible."""
+    def __init__(self, frame_number) -> None:
+        super().__init__(frame_number)
+
+    def add_shot(self):
         # Creates the shot, gets user to score the shot, and adds it to the list of shots.
         # If the first shot is a strike, it marks it as incomplete with two shots following, and pins are reset.
         # If the first shot is not a strike, then it remains incomplete and open for another shot for a possible spare.
@@ -365,31 +372,31 @@ class LastFrame(BowlingFrame):
         else:
             if self.nShots == 0:
                 # no shots have been taken yet this frame
-                pinsStandingBeforeShot = 10
+                pins_standing_before_shot = 10
                 self.nShots += 1
-                shot = BowlingShot(self.frameNumber, self.nShots, pinsStandingBeforeShot)
-                shot.getScoreFromUser()
+                shot = BowlingShot(self.frameNumber, self.nShots, pins_standing_before_shot)
+                shot.get_score_from_user()
                 self.shots.append(shot)
-                if shot.getScore() == 10:
+                if shot.get_score() == 10:
                     print("Strike!")
                     self.scoreType = "strike"
             elif self.nShots == 1:
                 # one shot taken already
                 # if first shot was a strike, pins reset.
-                if self.shots[0].getScore() == 10:
-                    pinsStandingBeforeShot = 10
+                if self.shots[0].get_score() == 10:
+                    pins_standing_before_shot = 10
                 else:
-                    pinsStandingBeforeShot = 10-self.shots[0].getScore()
+                    pins_standing_before_shot = 10-self.shots[0].get_score()
                 self.nShots += 1
-                shot = BowlingShot(self.frameNumber, self.nShots, pinsStandingBeforeShot)
-                shot.getScoreFromUser()
+                shot = BowlingShot(self.frameNumber, self.nShots, pins_standing_before_shot)
+                shot.get_score_from_user()
                 self.shots.append(shot)
-                if shot.getScore() == 10:
+                if shot.get_score() == 10:
                     print("Strike!")
-                elif self.shots[0].getScore() + self.shots[1].getScore() == 10:
+                elif self.shots[0].get_score() + self.shots[1].get_score() == 10:
                     print("Spare!")
                     self.scoreType = "spare"
-                elif self.shots[0].getScore() + self.shots[1].getScore() < 10:
+                elif self.shots[0].get_score() + self.shots[1].get_score() < 10:
                     print("Open.")
                     self.scoreType = "open"
                     self.complete = True
@@ -397,12 +404,12 @@ class LastFrame(BowlingFrame):
                 # two shots taken already
                 # this means a strike or spare must have been scored
                 # and so the pins must be reset
-                pinsStandingBeforeShot = 10
+                pins_standing_before_shot = 10
                 self.nShots += 1
-                shot = BowlingShot(self.frameNumber, self.nShots, pinsStandingBeforeShot)
-                shot.getScoreFromUser()
+                shot = BowlingShot(self.frameNumber, self.nShots, pins_standing_before_shot)
+                shot.get_score_from_user()
                 self.shots.append(shot)
-                if shot.getScore() == 10:
+                if shot.get_score() == 10:
                     print("Strike!")
                 else:
                     print("Open.")
