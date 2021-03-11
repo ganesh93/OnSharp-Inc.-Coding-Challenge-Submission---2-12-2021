@@ -12,7 +12,7 @@ class BowlingData:
     """This class represents bowling data from a round of bowling. The number of frames in the round can be specified. The default is 10. It is a container for bowling frames, and instances can add frames until the number of frames in the round are complete. It is considered complete when all frames for the round have been added. If complete, there is a method to retrieve the total score. There are also methods to print the scores from the frames to the console or an output file. An alternate way of adding a complete dataset is provided which requires no user input, but instead a nested list that contains score information.   """
     nFramesPerRound = 10
     def __init__(self):
-    """This is the initializer for this class."""
+        """This is the initializer for this class."""
         self.frames = []
         self.nFrames = 0
         self.scoreIndByFrame = []
@@ -28,7 +28,7 @@ class BowlingData:
 
     def addFrame(self):
         if self.complete:
-            print("Cannot add another frame. Score information for all " + str(self.__nFramesPerRound) + " frames is complete.")
+            print("Cannot add another frame. Score information for all " + str(self.nFramesPerRound) + " frames is complete.")
         else:
             # Add new frame, check whether to add a regular frame or last frame object.
             if self.nFrames == BowlingData.nFramesPerRound - 1:
@@ -185,7 +185,7 @@ class BowlingData:
         self.totalScore = self.getTotalScore()
         for i in range(nFrames):
             shotScores = pkd[i]
-            frameNumber = i+1;
+            frameNumber = i+1
             nShots = len(shotScores)
             if nShots == 1:
                 scoreType = "strike"
@@ -196,7 +196,7 @@ class BowlingData:
             
             shots = []
             for j in range(nShots):
-                shotNumber = j+1;
+                shotNumber = j+1
                 pinsStandingBeforeShot = 10-shotScores[j]
                 shot = BowlingShot(frameNumber,shotNumber,pinsStandingBeforeShot)
                 shot.score = shotScores[j]
