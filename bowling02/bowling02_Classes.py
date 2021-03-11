@@ -9,8 +9,10 @@
 # An alternate way of adding a complete dataset is provided which requires
 # no user input, but instead a nested list that contains score information.
 class BowlingData:
+    """This class represents bowling data from a round of bowling. The number of frames in the round can be specified. The default is 10. It is a container for bowling frames, and instances can add frames until the number of frames in the round are complete. It is considered complete when all frames for the round have been added. If complete, there is a method to retrieve the total score. There are also methods to print the scores from the frames to the console or an output file. An alternate way of adding a complete dataset is provided which requires no user input, but instead a nested list that contains score information.   """
     nFramesPerRound = 10
     def __init__(self):
+    """This is the initializer for this class."""
         self.frames = []
         self.nFrames = 0
         self.scoreIndByFrame = []
